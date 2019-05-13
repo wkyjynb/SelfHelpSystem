@@ -72,7 +72,7 @@
 									   <option value="">--请选择--</option>
 									   <c:forEach var="address" items="${addressList}">
 												<option <c:if test="${address.id == addressId}">selected="selected"</c:if>
-									   		value="${address.id}">${address.name}</option>
+									   		value="${address.ids}">${address.name}</option>
 									   </c:forEach>
 									</c:if>
         						</select>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:aop="http://www.springframework.org/schema/aop"  
+        xmlns:p="http://www.springframework.org/schema/p"  
+        xmlns:tx="http://www.springframework.org/schema/tx"  
+        xmlns:context="http://www.springframework.org/schema/context"  
+        xsi:schemaLocation="   
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd   
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context.xsd">  
+            
+    <context:component-scan base-package="com.t226.service"/> <!-- 扫描包下注解 -->
+    <context:component-scan base-package="com.t226.dao"/>
+    
+    <!-- 读取数据库配置文件 -->
+    <context:property-placeholder location="classpath:database.properties"/>
+    
+    <!-- JNDI获取数据源(使用dbcp连接池) -->  
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" scope="singleton">
+    		<property name="driverClassName" value="${driver}" />  
+			<property name="url" value="${url}" />  
+			<property name="username" value="${user}" />  
+			<property name="password" value="${password}" />
+			<property name="initialSize" value="${initialSize}"/>
+			<property name="maxActive" value="${maxActive}"/>
+			<property name="maxIdle" value="${maxIdle}"/>
+			<property name="minIdle" value="${minIdle}"/>
+			<property name="maxWait" value="${maxWait}"/>
+			<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"/>
+			<property name="removeAbandoned" value="${removeAbandoned}"/>
+			<!-- sql 心跳 -->
+			<property name= "testWhileIdle" value="true"/>
+			<property name= "testOnBorrow" value="false"/>
+			<property name= "testOnReturn" value="false"/>
+			<property name= "validationQuery" value="select 1"/>
+			<property name= "timeBetweenEvictionRunsMillis" value="60000"/>
+			<property name= "numTestsPerEvictionRun" value="${maxActive}"/>
+    </bean>
+    
+    
+
+    
+
+
+     <!--   事务管理器 -->
+   	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+   		<property name="dataSource" ref="dataSource"/><!-- 引用数据源 -->
+   	</bean> 
+    
+	<!-- AOP事务处理 -->
+    <aop:aspectj-autoproxy />
+    <aop:config proxy-target-class="true"><!-- proxy-target-class属性值决定是基于接口的还是基于类的代理被创建。如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 基于接口的代理  -->
+    <aop:pointcut expression="execution(* *com.t226.service..*(..))" id="transService"/><!-- 指定包下方法的作用域 -->
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="transService"/>
+    </aop:config>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager"><!-- 引用事务管理器 transaction-manager -->
+    <tx:attributes>
+    <tx:method name="affair*" propagation="REQUIRED" rollback-for="Exception"/><!--name 指定的方法名  -->
+    </tx:attributes>
+    </tx:advice> 
+    
+        <!--配置sqlSessionFactoryBean -->	    	
+<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+<property name="dataSource" ref="dataSource"></property><!-- 引用数据源 -->
+<property name="configLocation" value="classpath:mybatis-config.xml"></property><!--引用mybatis全局配置文件 -->
+<!-- <property name="mapperLocations">引入mybatis映射文件,如果接口与xml映射文件在同一个目录下,可以省略
+<list>
+<value>classpath:com/t226/dao/user/UserMapper.xml</value>
+</list>
+</property> -->
+</bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<property name="basePackage" value="com.t226.dao"></property><!-- 指定包,它自动扫描包下的接口,并且给每个接口生成一个MapperFactoryBean,并且给接口一个id,id名为接口名第一个小写 -->
+</bean>
+    
+    
+     
+</beans>

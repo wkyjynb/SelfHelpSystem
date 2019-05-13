@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SelfHelpSystem:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SelfHelpSystem_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="SelfHelpSystem/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SelfHelpSystem" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

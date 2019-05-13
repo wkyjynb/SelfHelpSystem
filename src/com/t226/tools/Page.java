@@ -28,7 +28,7 @@ public class Page {
 
     public void setCount(int count) {
         if(count>0){
-            this.pageCount=count%this.thisPage==0?count/this.thisPage:(count/this.thisPage+1);
+            this.pageCount=count%this.pageSize==0?count/this.pageSize:(count/this.pageSize+1);
             this.count = count;
         }
 

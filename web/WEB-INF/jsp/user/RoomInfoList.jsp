@@ -48,8 +48,10 @@
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="userId" class="form-control">
 								<option value="">--请选择--</option>
-									<option value="1">未出售</option>
-									<option value="2">已出售</option>
+									<c:if test="${userId == 1}"></c:if>
+
+									<option value="1" <c:if test="${userId == 1}">selected="selected"</c:if>>未出售</option>
+									<option value="2" <c:if test="${userId == 2}">selected="selected"</c:if>>已出售</option>
 									<%--	<c:if test="${flatFormList != null }">
 									   <option value="">--请选择--</option>
 									   <c:forEach var="dataDictionary" items="${flatFormList}">
@@ -86,7 +88,7 @@
         							<c:if test="${buildingList != null }">
 									   <option value="">--请选择--</option>
 									   <c:forEach var="building" items="${buildingList}">
-									   		<option <c:if test="${building.id == buildingId }">selected="selected"</c:if>
+									   		<option <c:if test="${building.id == buildingId}">selected="selected"</c:if>
 									   		value="${building.id}">${building.name}</option>
 									   </c:forEach>
 									</c:if>
@@ -98,12 +100,12 @@
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">楼层</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-        						<select name="queryCategoryLevel3" id="queryCategoryLevel3" class="form-control">
+        						<select name="layerId" id="queryCategoryLevel3" class="form-control">
         							<c:if test="${layerList != null }">
 									   <option value="">--请选择--</option>
 									   <c:forEach var="layer" items="${layerList}">
-									   		<option <c:if test="${layer.id == layerId }">selected="selected"</c:if>
-									   		value="${layer.id}">${layer.name}</option>
+									   		<option <c:if test="${layer.name == layerId}">selected="selected"</c:if>
+									   		value="${layer.name}">${layer.name}</option>
 									   </c:forEach>
 									</c:if>
         						</select>

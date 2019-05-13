@@ -33,10 +33,11 @@ public class RoomController {
         Page page=new Page();
        page.setPageSize(Constants.thisPage);
        page.setCount(roomService.getRoomCount(addressId,userId,buildingId,layerId));//查询数量
-        System.out.println("----------------------------------------------->进入查询房间方法");
-
-        System.out.println();
-       request.setAttribute("addressId",addressId);
+        System.out.println("----------------------------------------------->进入查询房间方法"+page.getCount());
+        request.setAttribute("userId",userId);//当前选中区域id
+       request.setAttribute("addressId",addressId);//当前选中区域id
+        request.setAttribute("buildingId",buildingId);//当前选中楼号
+        request.setAttribute("layerId",layerId);//当前选中楼层
         request.setAttribute("roomList",roomService.getRoomList(thisIndex,page.getPageSize(),addressId,userId,buildingId,layerId));//房间集合
        request.setAttribute("addressList",addressService.getAddressList());//区域集合
         return "/user/RoomInfoList";

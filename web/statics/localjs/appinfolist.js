@@ -48,7 +48,7 @@ $("#queryCategoryLevel2").change(function(){
 				for(var i = 0; i < data.length; i++){
 					//alert(data[i].id);
 					//alert(data[i].categoryName);
-					options += "<option value=\""+data[i].id+"\">"+data[i].name+"层</option>";
+					options += "<option value=\""+data[i].name+"\">"+data[i].name+"层</option>";
 				}
 				$("#queryCategoryLevel3").html(options);
 			},

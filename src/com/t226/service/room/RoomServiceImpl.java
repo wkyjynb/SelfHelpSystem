@@ -15,10 +15,6 @@ public class RoomServiceImpl implements RoomService{
     //查询房间
     @Override
     public List<Room> getRoomList(int thisPage,int pageSize,String addressId,String userId,String buildingId,String layerId) {
-        System.out.println("当前页"+thisPage);
-        System.out.println("层"+layerId);
-        System.out.println("楼"+buildingId);
-        System.out.println("区"+addressId);
         return roomMapper.getRoomList((thisPage-1)*pageSize,pageSize,addressId,userId,buildingId,layerId);
     }
 

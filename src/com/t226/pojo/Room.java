@@ -2,13 +2,22 @@ package com.t226.pojo;
 
 public class Room {
     private int id;
-    private int name;
+    private String name;
     private int buildingId;
     private int layerId;
     private String buildingName;
     private String addressName;
+    private String addressId;
     private double price;
     private int userId;
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
 
     public int getUserId() {
         return userId;
@@ -50,11 +59,11 @@ public class Room {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 

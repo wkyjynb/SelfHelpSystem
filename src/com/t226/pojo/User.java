@@ -14,6 +14,33 @@ public class User {
 	private  String identityId;//身份证号
 	private Date birthday;//生日
 	private Date createTime;//创建时间
+	private double money;//金钱
+	private String wxId;//微信Id
+	private int creditScore;//信用分
+
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(int creditScore) {
+		this.creditScore = creditScore;
+	}
+
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
+	}
+
+	public String getWxId() {
+		return wxId;
+	}
+
+	public void setWxId(String wxId) {
+		this.wxId = wxId;
+	}
 
 	public Date getBirthday() {
 		return birthday;

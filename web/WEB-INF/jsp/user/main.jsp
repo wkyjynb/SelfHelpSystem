@@ -4,7 +4,20 @@
 <div class="page-title">
 	<div class="title_left">
 		<h3>
-			欢迎你：${userSession.userName}<strong> | 角色：租房用户</strong>
+			<strong>欢迎你：
+			<c:choose>
+				<c:when test="${empty  userSession.userName}">
+				未实名
+				</c:when>
+
+				<c:otherwise>
+				${userSession.userName}
+		</c:otherwise>
+			</c:choose>
+
+
+
+			| 角色：租房用户</strong>
 		</h3>
 	</div>
 </div>

@@ -44,6 +44,7 @@
               <div>
               	<button type="submit" class="btn btn-success">登     录</button>
                 <a style="font-size: 19px" href="${pageContext.request.contextPath }/WeCat/login">微信登录</a>
+                <a style="font-size: 19px" href="${pageContext.request.contextPath }/Register.html">注册</a>
               	<button type="reset" class="btn btn-default">重　填</button>
               </div>
 

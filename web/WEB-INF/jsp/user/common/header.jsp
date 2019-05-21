@@ -71,7 +71,7 @@
 										class="fa fa-chevron-down"></span>
 								</a>
 									<ul class="nav child_menu">
-										<li><a href="javascript:;">个人信息</a>
+										<li><a href="${pageContext.request.contextPath }/user/showUserInfo.html">个人信息</a>
 										</li>
 										<li><a href="javascript:;">我的房子</a>
 										</li>

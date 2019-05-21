@@ -9,11 +9,13 @@ import com.t226.tools.Sms;
 import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,14 +27,12 @@ public class UserLoginController {
 
     Jedis jedis=new Jedis("106.12.119.87",6379);
 
-
-
     @Resource
     private UserService userService;
 
-
+public String[] fsd=new String[]{"s","d"};
     //进入登入页面
-    @RequestMapping("userLogin.html")
+    @RequestMapping(value ={"/userLogin.html","/"})
     public String userLogin(){
         return "userLogin";
     }
@@ -48,7 +48,7 @@ public class UserLoginController {
     public String registerSave(User user, HttpSession session){
         userService.affairAddUser(user);
         session.setAttribute(Constants.USER_SESSION,user);
-        return "redirect:/room/index.html";
+        return "redirect:/user/userMain.html";
     }
 
     //用户登录操作
@@ -98,6 +98,8 @@ public class UserLoginController {
     public String index(){
         return "index";
     }
+
+
 
 
 }

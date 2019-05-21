@@ -7,7 +7,9 @@ import com.t226.service.room.RoomService;
 import com.t226.tools.Constants;
 import com.t226.tools.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -26,21 +28,20 @@ public class RoomController {
     @Resource
     private BuildingService buildingService;
 
+
+    //条件查询房间
     @RequestMapping("/RoomInfoList.html")
     public String RoomInfoList(HttpServletRequest request,@RequestParam(value = "thisPage",required = false) String thisPage,@RequestParam(value = "addressId",required = false) String addressId
                                     ,@RequestParam(value = "userId",required = false) String userId,@RequestParam(value = "buildingId",required = false) String buildingId
                                     ,@RequestParam(value = "layerId",required = false) String layerId){
        int thisIndex=1;//当前页
        if(!StringUtils.isNullOrEmpty(thisPage)){
-           System.out.println("没值0000000000000000000000000000000000000000000000000000000");
         thisIndex=Integer.parseInt(thisPage);
        }
         Page page=new Page();
        page.setPageSize(Constants.thisPage);
        page.setCount(roomService.getRoomCount(addressId,userId,buildingId,layerId));//查询数量
         page.setThisPage(thisIndex);
-        System.out.println("----------------------------------------------->进入查询房间方法"+page.getCount());
-
       if(!StringUtils.isNullOrEmpty(addressId)){
           request.setAttribute("buildingList",buildingService.getBuilding(0,Integer.parseInt(addressId)));
           System.out.println(buildingService.getBuilding(0,Integer.parseInt(addressId)).size());
@@ -57,4 +58,36 @@ public class RoomController {
         request.setAttribute("pages",page);//分页
         return "/user/RoomInfoList";
     }
+
+
+
+
+   /* //购买页面
+    @RequestMapping(value = "purchase1")
+    public String purchase1(){
+        return "/user/appversionadd";
+    }*/
+
+    /**
+     * 使用REST风格，需要使用@PathVariable注解进行标注
+     * 购房页面
+     */
+    @RequestMapping(value = "/purchase/{addressName}/{buildingName}/{layerId}/{name}",method= RequestMethod.GET)
+    public String purchase2(@PathVariable String addressName,@PathVariable String buildingName,@PathVariable String layerId,@PathVariable String name,HttpServletRequest request){
+        request.setAttribute("addressName",addressName);
+        request.setAttribute("buildingName",buildingName);
+        request.setAttribute("layerId",layerId);
+        request.setAttribute("name",name);
+        return "/user/purchase";
+    }
+
+
+
+
+
+
+
+
+
+
 }

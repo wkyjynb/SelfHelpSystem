@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.t226.dao.user.UserMapper">
 
 <insert id="affairAddUser"><!--添加用户-->
-INSERT security_user (password,userName,phone,identityId)VALUE
-(#{password},#{userName},#{phone},#{identityId})
+INSERT security_user (password,phone)VALUE
+(#{password},#{phone})
 </insert>
 
     <select id="userLogin" resultType="User">

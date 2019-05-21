@@ -20,7 +20,6 @@
       <list>
       <bean class="com.t226.tools.StringToDateConverter"><!-- class为自定义转换器路径 -->
       <constructor-arg type="java.lang.String" value="yyyy-MM-dd"><!-- 进行构造注入 -->
-      
       </constructor-arg>
       </bean>
       </list>
@@ -98,7 +97,7 @@
         <context:component-scan base-package="com.t226.controller"/>
        
         <mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources><!-- 扫描指定目录下的文件可用 -->
-        
+
         <!-- 全局异常配置 errorLgoin-->
         <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 			<!--<property name="exceptionMappings">
@@ -117,7 +116,7 @@
 
         <!--配置MultipartResolver,用于文件上传 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<property name="maxUploadSize" value="5000000"></property><!-- 上传文件大小限制 -->
+	<property name="maxUploadSize" value="500000000"></property><!-- 上传文件大小限制 -->
 	<property name="defaultEncoding" value="UTF-8"></property>
 	</bean>
         

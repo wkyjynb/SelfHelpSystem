@@ -1,144 +1,187 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="common/header.jsp"%>
-<div class="clearfix"></div>
-<div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>新增APP版本信息 <i class="fa fa-user"></i><small>${devUserSession.devName}</small></h2>
-            <div class="clearfix"></div>
-      </div>
-      <div class="x_title">
-            <h2>历史版本列表</h2>
-          <div class="clearfix"></div>
-      </div>
-      <div class="x_content1">
-      <div class="clearfix"></div>
-	  <p class="text-muted font-13 m-b-30"></p>
-		<div id="datatable-responsive_wrapper"
-			class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-			<div class="row">
-				<div class="col-sm-12">
-					<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
-						cellspacing="0" width="100%" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
-						<thead>
-							<tr role="row">
-								<th class="sorting_asc" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 70px;" aria-label="First name: activate to sort column descending"
-									aria-sort="ascending">软件名称</th>
-								<th class="sorting" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 10px;"
-									aria-label="Last name: activate to sort column ascending">
-									版本号</th>
-								<th class="sorting" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 90px;"
-									aria-label="Last name: activate to sort column ascending">
-									版本大小(单位:M)</th>
-								<th class="sorting" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 50px;"
-									aria-label="Last name: activate to sort column ascending">
-									发布状态</th>
-								<th class="sorting" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 50px;"
-									aria-label="Last name: activate to sort column ascending">
-									APK文件下载</th>
-								<th class="sorting" tabindex="0"
-									aria-controls="datatable-responsive" rowspan="1" colspan="1"
-									style="width: 50px;"
-									aria-label="Last name: activate to sort column ascending">
-									最新更新时间</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="appVersion" items="${appVersionList }" varStatus="status">
-								<tr role="row" class="odd">
-									<td tabindex="0" class="sorting_1">${appVersion.appName}</td>
-									<td>${appVersion.versionNo }</td>
-									<td>${appVersion.versionSize }</td>
-									<td>${appVersion.publishStatusName }</td>
-									<td>
-									<a href="${appVersion.downloadLink }">${appVersion.apkFileName }</a>
-									</td>
-									<td><fmt:formatDate value="${appVersion.modifyDate }" pattern="yyyy-MM-dd"/></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-        <div class="clearfix"></div>
-        <div class="x_title">
-            <h2>新增版本信息</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-            </ul>
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content" style="display: block;">
-         <br>
-        <form class="form-horizontal form-label-left" action="addversionsave" method="post" enctype="multipart/form-data">
-           <input type="hidden" name="appId" name="appId" value="${appVersion.appId}">
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">版本号 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="versionNo" class="form-control col-md-7 col-xs-12" 
-               data-validate-length-range="20" data-validate-words="1" name="versionNo"  
-               placeholder="请输入版本号" type="text"  required="required">
-            </div>
-          </div>
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">版本大小 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="number" id="versionSize" name="versionSize"  required="required"
-              data-validate-minmax="10,500"  placeholder="请输入版本大小，单位为Mb" class="form-control col-md-7 col-xs-12">
-            </div>
-          </div>
-       
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="select">发布状态 <span class="required">*</span></label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="hidden" name="publishStatus" id="publishStatus" value="3">预发布
-            </div>
-          </div>
-        
-          <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">版本简介 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="versionInfo" name="versionInfo" required="required"
-              placeholder="请输入本版本的相关信息，本信息作为该版本的详细信息进行版本介绍。" class="form-control col-md-7 col-xs-12"></textarea>
-            </div>
-          </div>
-           <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">apk文件 <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="file" class="form-control col-md-7 col-xs-12" name="a_downloadLink" id="a_downloadLink"  required="required"/>
-            ${fileUploadError }
-            </div>
-          </div>
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-              <button id="send" type="submit" class="btn btn-success">保存</button>
-              <button type="button" class="btn btn-primary" id="back">返回</button>
-            </div>
-          </div>
-        </form>
-        </div>
-      </div>
+<div id="div" style="width: 600px; height: 300px;"></div><br/><br/><br/><br/>
+<div style="margin-left: 400px ">查询：<input type="date" id="date"> - <input type="date" id="date1"> <input type="button" value="查询" onclick="typetext()"></div><br/>
+<div>
+    <div id="div1" style="width: 600px; height: 400px; float: left;">
     </div>
-  </div>
+    <div id="div2" style="width: 600px; height: 400px; float: left;"></div>
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery-1.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath }/statics/js/echarts.min.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('div'));
+    var myChart1 = echarts.init(document.getElementById('div1'));
+    var myChart2 = echarts.init(document.getElementById('div2'));
+    var at = 1;
+    var arr = [];
+    var arr1 = [];
+    var arr2 = [];
+    var date = [];
+    var humidity=[];
+    var yanwu=[ {value : 0,name : '检测到烟雾'}, {value : 0,name : '未检测到烟雾'} ];
+    option = {
+        title : {
+            text : '烟雾检测器',
+            left : 'center'
+        },
+        tooltip : {
+            trigger : 'item',
+            formatter : '{a} <br/>{b} : {c}'
+        },
+        legend : {
+            left : 'left',
+            data : [ '温度', '相对湿度' ]
+        },
+        xAxis : {
+            type : 'category',
+            name : 'x',
+            splitLine : {
+                show : false
+            },
+            data : date
+        },
+        grid : {
+            left : '3%',
+            right : '4%',
+            bottom : '3%',
+            containLabel : true
+        },
+        yAxis : {
+            type : 'log',
+            name : 'y'
+        },
+        series : [ {
+            name : '相对湿度',
+            type : 'line',
+            data : arr
+        }, {
+            name : '温度',
+            type : 'line',
+            data : arr1
+        }, {
+            name : '烟雾',
+            type : 'line',
+            data : arr2
+        } ]
+    };
+    function fact() {
+        $.ajax({
+            "url" : "${pageContext.request.contextPath}/sel.html",
+            "type" : "POST",
+            "data" : "",
+            "dataType" : "JSON",
+            "success" : fortext
+        })
+        function fortext(data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].smoke == 1) {
+                    arr2.push(99 + data[i].smoke);
+                } else {
+                    arr2.push("1" + data[i].smoke);
+                }
+                arr.push(data[i].temperature);
+                arr1.push(data[i].humidity);
+                date.push(data[i].date);
+            }
+            myChart.setOption(option);
+            myChart.hideLoading();
+        }
+    }
+    setInterval("fact1()", 30000);
+    function fact1() {
+        if (at == 1) {
+            fact();
+            at--;
+        }
+        $.ajax({
+            "url" : "${pageContext.request.contextPath}/add.html",
+            "type" : "POST",
+            "data" : "",
+            "dataType" : "JSON",
+            "success" : fortext1
+        })
+        function fortext1(data) {
+            if (data.smoke == 1) {
+                arr2.push(99 + data.smoke);
+            } else {
+                arr2.push("1" + data.smoke);
+            }
+            arr.push(data.temperature);
+            arr1.push(data.humidity);
+            date.push(data.date);
+            myChart.setOption(option);
+            myChart.hideLoading();
+        }
+    }
+    option3 = {
+        title : {
+            text : '烟雾数据展示',
+            subtext : '',
+            x : 'center'
+        },
+        tooltip : {
+            trigger : 'item',
+            formatter : "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend : {
+            orient : 'vertical',
+            left : 'left',
+            data : [ '检测到烟雾', '未检测到烟雾' ]
+        },
+        series : [ {
+            name : '访问来源',
+            type : 'pie',
+            radius : '55%',
+            center : [ '50%', '60%' ],
+            data : yanwu,
+            itemStyle : {
+                emphasis : {
+                    shadowBlur : 10,
+                    shadowOffsetX : 0,
+                    shadowColor : 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        } ]
+    };
+    option2 = {
+        xAxis : {
+            type : 'category',
+            data : [ '温度', '相对湿度' ]
+        },
+        yAxis : {
+            type : 'value'
+        },
+        series : [ {
+            data : humidity,
+            type : 'bar'
+        } ]
+    };
+    function typetext(){
+        var date=$("#date").val();
+        var date1=$("#date1").val();
+        alert(date);
+        if(date!=null&&date1!=null){
+            $.ajax({
+                "url" : "${pageContext.request.contextPath}/date.html",
+                "type" : "POST",
+                "data" : "date="+date+"&date1="+date1,
+                "dataType" : "JSON",
+                "success" : fack
+            })
+            function fack(data){
+                yanwu[0].value=data[0].smoke1;
+                yanwu[1].value=data[0].smoke;
+                humidity[0]=data[0].humidity;
+                humidity[1]=data[0].temperature;
+                myChart1.setOption(option3);
+                myChart1.hideLoading();
+                myChart2.setOption(option2);
+                myChart2.hideLoading();
+            }
+        }
+    }
+</script>
 <%@include file="common/footer.jsp"%>
 <script src="${pageContext.request.contextPath }/statics/localjs/appversionadd.js"></script>

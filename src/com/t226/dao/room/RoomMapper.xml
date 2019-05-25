@@ -5,6 +5,46 @@
 <mapper namespace="com.t226.dao.room.RoomMapper">
 
 
+
+
+
+
+    <select id="getRoomList1" resultType="Room"><!--条件查询房间-->
+        SELECT room.*,building.name as buildingName,adds.name as addressName from security_room as room inner JOIN
+        security_building as building on building.id=room.buildingId
+        INNER JOIN address as adds on adds.id=building.addressId
+        <trim prefix="where" prefixOverrides="and">
+            <if test="addressId != null and addressId != ''">
+                building.addressId=#{addressId}
+            </if>
+            <if test="userId != null and userId != ''">
+                <if test="userId == 1">
+                    and userId=0
+                </if>
+                <if test="userId == 2">
+                    and userId!=0
+                </if>
+            </if>
+            <if test="buildingId != null and buildingId != ''">
+                and room.buildingId=#{buildingId}
+            </if>
+            <if test="layerId != null and layerId != ''">
+                and room.layerId=#{layerId}
+            </if>
+        </trim>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
     <select id="getRoomList" resultType="Room"><!--条件查询房间-->
 SELECT room.*,building.name as buildingName,adds.name as addressName from security_room as room inner JOIN
 security_building as building on building.id=room.buildingId
@@ -57,6 +97,7 @@ security_building as building on building.id=room.buildingId
      </if>
  </trim>
     </select>
+
 
 
 

@@ -8,6 +8,11 @@ import java.util.List;
 public interface RoomService {
     //查询房间
     List<Room> getRoomList(int thisPage,int pageSize,String addressId,String userId,String buildingId,String layerId);
+
+    //查询房间1
+    List<Room> getRoomList1(String addressId,String userId,String buildingId,String layerId);
+
+
     //条件查询数量
     int getRoomCount(String addressId,String userId,String buildingId,String layerId);
 }

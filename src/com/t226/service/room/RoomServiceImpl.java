@@ -18,6 +18,12 @@ public class RoomServiceImpl implements RoomService{
         return roomMapper.getRoomList((thisPage-1)*pageSize,pageSize,addressId,userId,buildingId,layerId);
     }
 
+    //查询房间1
+    @Override
+    public List<Room> getRoomList1(String addressId, String userId, String buildingId, String layerId) {
+        return roomMapper.getRoomList1(addressId,userId,buildingId,layerId);
+    }
+
     //条件查询数量
     @Override
     public int getRoomCount(String addressId, String userId, String buildingId, String layerId) {

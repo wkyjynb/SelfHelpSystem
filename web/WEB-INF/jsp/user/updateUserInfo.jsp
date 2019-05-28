@@ -18,6 +18,7 @@
             <ul>
               <li>  身份证正面:<input type="file" id="front" name="attachs"></li>
                 <li> 身份证反面:<input type="file" id="back" name="attachs"></li>
+                <li><span style="color: red">${error}</span></li>
                 <input type="submit" value="提交">
             </ul>
         </form>
@@ -30,7 +31,6 @@
                 }
                 return true;
             })
-
         </script>
 
 </div>

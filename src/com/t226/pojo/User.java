@@ -8,7 +8,7 @@ public class User {
 	private int userType;//用户类型
 	private String userName;//用户名
 	private int age;//年龄
-	private int gender;//性别
+	private int gender;//性别,0男1女
 	private String phone;//手机号
 	private String email;//邮箱
 	private  String identityId;//身份证号
@@ -17,6 +17,15 @@ public class User {
 	private double money;//金钱
 	private String wxId;//微信Id
 	private int creditScore;//信用分
+	private String nation;//民族
+
+	public String getNation() {
+		return nation;
+	}
+
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
 
 	public int getCreditScore() {
 		return creditScore;

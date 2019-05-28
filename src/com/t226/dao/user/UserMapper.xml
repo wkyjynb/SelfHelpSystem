@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.t226.dao.user.UserMapper">
 
-<insert id="affairAddUser"><!--添加用户-->
+    <insert id="affairAddUser"><!--添加用户-->
 INSERT security_user (password,phone)VALUE
 (#{password},#{phone})
 </insert>
 
     <select id="userLogin" resultType="User">
-        SELECT * FROM security_user where phone=#{phone} AND userType=0
+        SELECT * FROM security_user where phone=#{phone}
     </select>
-    <select id="dologin" resultType="User">
-        SELECT * FROM security_user where phone=#{userCode} AND userType=1
+
+    <update id="addIdentity"><!--身份认证-->
+        update security_user set userName=#{userName},gender=#{gender},nation=#{nation},birthday=#{birthday},
+        identityId=#{identityId},creditScore=#{creditScore} where id=#{id}
+    </update>
+
+    <select id="wxUser" resultType="User">/*微信登录或注册*/
+        	SELECT * FROM security_user where wxId=#{wxId}
     </select>
-    <insert id="doInsert">
-		insert into detection(temperature,humidity,smoke,date)value(#{temperature},#{humidity},#{smoke},#{date});
-	</insert>
-    <select id="finSelect" resultType="Detection">
-		select * from detection;
-	</select>
-    <select id="finCount" resultType="map">
-		select sum(temperature)/count(*) as temperature,sum(humidity)/count(*) as humidity,(SELECT COUNT(1) from detection where #{date}>date AND date>#{date1} AND smoke=1) as smoke,(SELECT COUNT(1) from detection where #{date}>date AND date>#{date1} AND smoke=0) as smoke1  from detection WHERE #{date}>date AND date>#{date1};
-	</select>
+
+    <insert id="addWxUser">   /*微信注册*/
+        INSERT INTO security_user(wxId)VALUE(#{wxId})
+    </insert>
+
+    <update id="wxBind">/*微信绑定*/
+      update security_user set wxId=#{wxId} where id=#{userId}
+    </update>
+
+    <update id="updateMoney">/*充值*/
+update security_user set money=money+#{money} where id=#{id}
+    </update>
 </mapper>

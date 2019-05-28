@@ -23,4 +23,9 @@ public class RoomServiceImpl implements RoomService{
     public int getRoomCount(String addressId, String userId, String buildingId, String layerId) {
         return roomMapper.getRoomCount(addressId,userId,buildingId,layerId);
     }
+//根据房间id查询
+    @Override
+    public Room getRoom(int roomId) {
+        return roomMapper.getRoom(roomId);
+    }
 }

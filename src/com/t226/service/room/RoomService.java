@@ -10,4 +10,5 @@ public interface RoomService {
     List<Room> getRoomList(int thisPage,int pageSize,String addressId,String userId,String buildingId,String layerId);
     //条件查询数量
     int getRoomCount(String addressId,String userId,String buildingId,String layerId);
+    Room getRoom(int roomId);//根据房间id查询
 }

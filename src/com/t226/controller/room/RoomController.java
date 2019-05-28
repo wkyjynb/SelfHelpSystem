@@ -1,6 +1,7 @@
 package com.t226.controller.room;
 
 import com.mysql.jdbc.StringUtils;
+import com.t226.pojo.Room;
 import com.t226.service.address.AddressService;
 import com.t226.service.building.BuildingService;
 import com.t226.service.room.RoomService;
@@ -62,6 +63,8 @@ public class RoomController {
 
 
 
+
+
    /* //购买页面
     @RequestMapping(value = "purchase1")
     public String purchase1(){
@@ -72,13 +75,10 @@ public class RoomController {
      * 使用REST风格，需要使用@PathVariable注解进行标注
      * 购房页面
      */
-    @RequestMapping(value = "/purchase/{addressName}/{buildingName}/{layerId}/{name}",method= RequestMethod.GET)
-    public String purchase2(@PathVariable String addressName,@PathVariable String buildingName,@PathVariable String layerId,@PathVariable String name,HttpServletRequest request){
-        request.setAttribute("addressName",addressName);
-        request.setAttribute("buildingName",buildingName);
-        request.setAttribute("layerId",layerId);
-        request.setAttribute("name",name);
-        return "/user/purchase";
+    @RequestMapping(value = "/purchase/{id}",method= RequestMethod.GET)
+    public String purchase2(@PathVariable int id,HttpServletRequest request){
+      request.setAttribute("room",roomService.getRoom(id));
+       return "/user/purchase";
     }
 
 

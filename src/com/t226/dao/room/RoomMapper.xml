@@ -58,7 +58,10 @@ security_building as building on building.id=room.buildingId
  </trim>
     </select>
 
-
+<select id="getRoom" resultType="Room">/*根据房间id查询*/
+    select ad.`name` as addressName,room.id,room.`name`,room.layerId,building.`name` as buildingName,room.price  FROM security_room as room inner join security_building as building
+ on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id=#{roomId}
+</select>
 
 </mapper>
 

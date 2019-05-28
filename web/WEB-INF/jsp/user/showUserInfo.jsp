@@ -26,17 +26,17 @@
         <div>
           <c:choose>
             <c:when test="${empty  userSession.wxId}">
-              <a href="#">未绑定微信</a>
+              <a href="${pageContext.request.contextPath }/WeCat/login1">未绑定微信</a>
             </c:when>
 
             <c:otherwise>
-              已绑定 ${userSession.wxId}微信
+              已绑定微信
             </c:otherwise>
           </c:choose>
         </div>
 
         <div>
-         当前账户余额:${userSession.money}
+          当前账户余额:<span id="moneys">${userSession.money}</span>
         </div>
 
         <div>
@@ -46,16 +46,29 @@
             </c:when>
 
             <c:otherwise>
-                已实名认证
+                已实名认证>${userSession.userName}<br/>
+              <a id="but">点击充值</a>
             </c:otherwise>
           </c:choose>
         </div>
 
-
+        <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery-1.8.3.js"></script>
+        <script type="text/javascript">
+         var  path="${pageContext.request.contextPath }";
+          $("#but").click(function () {
+            var money = prompt("请输入充值金额");
+            $.getJSON(path+"/user/updateMoney",{"money":money},function (data) {
+              if(data.num==1){
+              $("#moneys").text(Number($("#moneys").text())+Number(money));
+              }
+            })
+          });
+        </script>
 
       </div>
     </div>
   </div>
 </div>
 <%@include file="common/footer.jsp"%>
-<script src="${pageContext.request.contextPath }/statics/localjs/appinfoadd.js"></script>
+<%--
+<script src="${pageContext.request.contextPath }/statics/localjs/appinfoadd.js"></script>--%>

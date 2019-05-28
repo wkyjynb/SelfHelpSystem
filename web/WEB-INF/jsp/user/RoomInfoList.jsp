@@ -187,7 +187,7 @@
 										<td>${room.price}</td>
 									<%--	<td></td>
 										<td></td>--%>
-										<td><a href="${path}/room/purchase/${room.addressName}/${room.buildingName}/${room.layerId}/${room.name}">购买</a></td>
+										<td><a href="${path}/room/purchase/${room.id}">购买</a></td>
 										
 										
 							<%--	<td>		<div class="btn-group">

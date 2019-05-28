@@ -10,8 +10,20 @@ INSERT security_user (password,phone)VALUE
 </insert>
 
     <select id="userLogin" resultType="User">
-        SELECT * FROM security_user where phone=#{phone}
+        SELECT * FROM security_user where phone=#{phone} AND userType=0
     </select>
+    <select id="dologin" resultType="User">
+        SELECT * FROM security_user where phone=#{userCode} AND userType=1
+    </select>
+    <insert id="doInsert">
+		insert into detection(temperature,humidity,smoke,date)value(#{temperature},#{humidity},#{smoke},#{date});
+	</insert>
+    <select id="finSelect" resultType="Detection">
+		select * from detection;
+	</select>
+    <select id="finCount" resultType="map">
+		select sum(temperature)/count(*) as temperature,sum(humidity)/count(*) as humidity,(SELECT COUNT(1) from detection where #{date}>date AND date>#{date1} AND smoke=1) as smoke,(SELECT COUNT(1) from detection where #{date}>date AND date>#{date1} AND smoke=0) as smoke1  from detection WHERE #{date}>date AND date>#{date1};
+	</select>
 
     <update id="addIdentity"><!--身份认证-->
         update security_user set userName=#{userName},gender=#{gender},nation=#{nation},birthday=#{birthday},

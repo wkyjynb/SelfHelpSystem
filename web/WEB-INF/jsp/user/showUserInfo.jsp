@@ -14,7 +14,7 @@
         <div>
           <c:choose>
             <c:when test="${empty  userSession.email}">
-              <a href="#">未绑定邮箱</a>
+              <a href="${pageContext.request.contextPath}/user/emailAdd.html">未绑定邮箱</a>
             </c:when>
 
             <c:otherwise>

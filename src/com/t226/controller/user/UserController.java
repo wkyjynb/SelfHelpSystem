@@ -66,8 +66,11 @@ public class UserController {
 	public String updateUserInfo(){
 		return "/user/updateUserInfo";
 	}
-
-
+	//进入邮箱绑定页面
+	@RequestMapping("/emailAdd.html")
+	public String EmailAdd(){
+		return "/user/EmailAdd";
+	}
 	//进行实名认证
 	@RequestMapping("/addIdentityId")
 	public String addIdentityId(User user,HttpServletRequest request,

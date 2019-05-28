@@ -39,6 +39,7 @@
               </div>
               <div>
                 <input type="password" class="form-control" name="password" placeholder="请输入密码" required="" />
+                <a style="color: red;text-decoration: none" href="">忘记密码</a>
               </div>
               <span>${error}</span>
               <div>

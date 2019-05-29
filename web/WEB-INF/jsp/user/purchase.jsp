@@ -27,10 +27,11 @@
         alert("当前余额不足");
       }else {
         var now = new Date();
+
         newDate = DateAdd("m ",Number($("#numbers").val()),now);
-        $("#stopTime").val(newDate);
-        $("#money").val(Number("${room.price}")*Number($("#numbers").val()));
-        $("#form1s").submit();
+        var oDate = new Date(newDate);//转回时间类型
+        alert(oDate.getFullYear()+"-"+oDate.getMonth()+"-"+oDate.getDate());
+
       }
     })
 

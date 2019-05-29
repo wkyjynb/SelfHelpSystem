@@ -91,5 +91,7 @@ security_building as building on building.id=room.buildingId
  on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id=#{roomId}
 </select>
 
+
+
 </mapper>
 

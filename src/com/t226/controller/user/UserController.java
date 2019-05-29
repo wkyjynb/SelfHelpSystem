@@ -160,13 +160,6 @@ public class UserController {
             return map;
         }
     */
-//微信小程序登录
-@ResponseBody
-@RequestMapping("/wxUser")
-public Object wxUser(){
-//	wxUser
-		return null;
-}
 
 //充值
 @ResponseBody

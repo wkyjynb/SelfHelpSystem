@@ -28,4 +28,13 @@ public class RoomServiceImpl implements RoomService{
     public Room getRoom(int roomId) {
         return roomMapper.getRoom(roomId);
     }
+
+
+
+
+    //查询房间1
+    @Override
+    public List<Room> getRoomList1(String addressId, String userId, String buildingId, String layerId) {
+        return roomMapper.getRoomList1(addressId,userId,buildingId,layerId);
+    }
 }

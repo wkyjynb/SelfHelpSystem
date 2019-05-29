@@ -14,7 +14,7 @@
       <br/>
       当前账户余额:${userSession.money}
       <br/>
-      <form method="post" action="${pageContext.request.contextPath }" id="form1s">
+      <form method="post" action="${pageContext.request.contextPath}" id="form1s">
         请输入月数<input type="text" id="numbers">${room.price}/每月<br/>
         <input type="button" value="购买" id="buts">
         <input type="hidden" value="" id="stopTime" name="stopTime">

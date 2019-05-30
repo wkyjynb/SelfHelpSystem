@@ -175,4 +175,17 @@ return "{\"num\":\""+num+"\"}";
 }
 
 
+//购房
+	@RequestMapping(value = "/purchaseRoom",method = RequestMethod.POST)
+	public String purchaseRoom(HttpSession httpSession,@RequestParam(value = "stopTime") String stopTime,@RequestParam(value = "money") double money,@RequestParam(value="roomId") int roomId){
+	int id=((User) httpSession.getAttribute(Constants.USER_SESSION)).getId();
+	roomService.purchaseRoom(stopTime,money,roomId,id);
+		roomService.updateRoomUserId(id,roomId);
+		return "redirect:/user/showUserInfo.html";
+	}
+
+
+
+
+
 		}

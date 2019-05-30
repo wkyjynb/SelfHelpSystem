@@ -14,4 +14,10 @@ public interface RoomMapper {
 
     //条件查询房间1
     List<Room> getRoomList1(@Param("addressId") String addressId, @Param("userId") String userId, @Param("buildingId") String buildingId, @Param("layerId") String layerId);
+
+    //购房操作
+    int purchaseRoom(@Param("stopTime") String stopTime,@Param("money") double money,@Param("roomId") int roomId,@Param("userId") int userId);
+
+    //购买后更新房子主人
+    int updateRoomUserId(@Param("userId") int userId,@Param("id") int id);
 }

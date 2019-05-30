@@ -14,4 +14,11 @@ public interface RoomService {
 
     //查询房间1
     List<Room> getRoomList1(String addressId,String userId,String buildingId,String layerId);
+
+    //购房操作
+    int purchaseRoom(String stopTime,double money,int roomId,int userId);
+
+
+    //购买后更新房子主人
+    int updateRoomUserId(@Param("userId") int userId,@Param("id") int id);
 }

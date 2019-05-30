@@ -37,4 +37,16 @@ public class RoomServiceImpl implements RoomService{
     public List<Room> getRoomList1(String addressId, String userId, String buildingId, String layerId) {
         return roomMapper.getRoomList1(addressId,userId,buildingId,layerId);
     }
+
+
+    //购房操作
+    @Override
+    public int purchaseRoom(String stopTime, double money, int roomId, int userId) {
+        return roomMapper.purchaseRoom(stopTime,money,roomId,userId);
+    }
+
+    @Override
+    public int updateRoomUserId(int userId, int id) {
+        return roomMapper.updateRoomUserId(userId,id);
+    }
 }

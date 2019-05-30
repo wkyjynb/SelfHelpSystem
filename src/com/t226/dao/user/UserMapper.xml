@@ -45,4 +45,5 @@ INSERT security_user (password,phone)VALUE
     <update id="updateMoney">/*充值*/
 update security_user set money=money+#{money} where id=#{id}
     </update>
+    <select id=""
 </mapper>

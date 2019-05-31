@@ -21,5 +21,7 @@
 		</h3>
 	</div>
 </div>
+
 <div class="clearfix"></div>
+
 <%@include file="common/footer.jsp"%>

@@ -13,6 +13,7 @@
 
 <title>自助租房</title>
 
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/statics/jiaoben4567/css/jquery.zySlide.css">
 	<!-- Bootstrap -->
 	<link href="${pageContext.request.contextPath }/statics/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Font Awesome -->
@@ -174,3 +175,5 @@
 			<!-- /top navigation -->
 			<div class="right_col" role="main">
 				<div class="">
+
+

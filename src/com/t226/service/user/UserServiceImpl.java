@@ -99,6 +99,16 @@ public class UserServiceImpl implements UserService {
 	public int updateMoney(int money, int id) {
 		return userMapper.updateMoney(money,id);
 	}
-
-
+	//绑定邮箱
+	public int addEmail(String email,int id){
+		return userMapper.addEmail(email,id);
+	}
+	//根据手机号码获取邮箱
+	public User modifyPhone(String phone){
+		return userMapper.modifyPhone(phone);
+	}
+	//修改密码
+	public int modifyPwd(String pwd,String phone){
+		return userMapper.modifyPwd(pwd,phone);
+	}
 }

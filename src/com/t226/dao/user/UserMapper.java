@@ -18,4 +18,7 @@ public interface UserMapper {
 	int addWxUser(@Param("wxId") String wxId);//微信注册
 	int wxBind(@Param("wxId") String wxId,@Param("userId") int userId);//微信绑定
 	int updateMoney(@Param("money") int money,@Param("id") int id);//充值
+	int addEmail(@Param("email") String email,@Param("id") int id);//绑定邮箱
+	User modifyPhone(String phone);//根据手机号码获取邮箱
+	int modifyPwd(@Param("pwd")String pwd,@Param("phone")String phone);//修改密码
 }

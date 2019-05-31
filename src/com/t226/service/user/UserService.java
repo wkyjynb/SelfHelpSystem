@@ -17,4 +17,7 @@ public interface UserService {
 	User wxUser(@Param("wxId") String wxId);	//微信登录或注册
 	int wxBind(@Param("wxId") String wxId,@Param("userId") int userId);//微信绑定
 	int updateMoney(int money,int id);//充值
+	int addEmail(String email,int id);//绑定邮箱
+	User modifyPhone(String phone);//根据手机号码获取邮箱
+	int modifyPwd(String pwd,String phone);//修改密码
 }

@@ -24,17 +24,15 @@ import com.t226.service.building.BuildingService;
 import com.t226.service.room.RoomService;
 import com.t226.tools.Constants;
 import com.t226.tools.Idcard;
+import com.t226.tools.Mail;
 import com.t226.tools.Util;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.t226.pojo.User;
 import com.t226.service.user.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 import sun.misc.BASE64Encoder;
@@ -73,6 +71,7 @@ public class UserController {
 
     //完善用户信息
     @RequestMapping("/updateUserInfo.html")
+
     public String updateUserInfo() {
         return "/user/updateUserInfo";
     }
@@ -197,72 +196,31 @@ public class UserController {
         Map<String,Object> map=new HashMap<String,Object>();
         int mail=0;
         try {
-            mail=mail(qq);
+            mail= Mail.mail(qq);
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
         map.put("yan",mail);
         return JSONArray.toJSONString(map);
     }
-    public int mail(String qq) throws GeneralSecurityException
-    {
-        // 收件人电子邮箱
-        String to = qq;
-
-
-        // 发件人电子邮箱
-        String from = "2735633182@qq.com";
-
-        // 指定发送邮件的主机为 smtp.qq.com
-        String host = "smtp.qq.com";  //QQ 邮件服务器smtp.qq.com
-
-        // 获取系统属性
-        Properties properties = System.getProperties();
-
-        // 设置邮件服务器
-        properties.setProperty("mail.smtp.host", host);
-
-        properties.put("mail.smtp.auth", "true");
-        MailSSLSocketFactory sf = new MailSSLSocketFactory();
-        sf.setTrustAllHosts(true);
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.ssl.socketFactory", sf);
-        // 获取默认session对象
-        Session session = Session.getDefaultInstance(properties,new Authenticator(){
-            public PasswordAuthentication getPasswordAuthentication()
-            {
-                return new PasswordAuthentication("2735633182@qq.com", "ngognuoriiypddcj"); //发件人邮件用户名、密码
-            }
-        });
-        int result=(int)(Math.random()*9000+999);
+    @RequestMapping(value="/zheng.html",method = RequestMethod.POST)
+    @ResponseBody
+    public Object zheng(String qq){
+        Map<String,Object> map=new HashMap<String,Object>();
         Jedis jedis=new Jedis("106.12.129.166",6379);
         jedis.auth("1234");
-        jedis.sadd(qq,result+"");
-        jedis.expire(qq,70);
-        try{
-            // 创建默认的 MimeMessage 对象
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: 头部头字段
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: 头部头字段
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // Set Subject: 头部头字段
-            message.setSubject("自助租房系统绑定邮箱验证码：");
-
-            // 设置消息体
-            message.setText("验证码为："+result+"，感谢你使用自助租房系统，请填写完整完成验证");
-
-            // 发送消息
-            Transport.send(message);
-            System.out.println("Sent message successfully....from runoob.com");
-            return 1;
-        }catch (MessagingException mex) {
-            mex.printStackTrace();
+        map.put("zhen",jedis.smembers(qq));
+        return JSONArray.toJSONString(map);
+    }
+    @RequestMapping(value="addEmail.html",method = RequestMethod.POST)
+    public String addEmail(String email,HttpServletRequest request,HttpSession session){
+        User user=(User)request.getSession().getAttribute(Constants.USER_SESSION);
+        int result=userService.addEmail(email,user.getId());
+        if(result>0){
+            user.setEmail(email);
+            return "redirect:/user/showUserInfo.html";
         }
-        return 0;
+        return "redirect:/user/emailAdd.html";
     }
 
 }

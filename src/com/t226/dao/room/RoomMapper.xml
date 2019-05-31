@@ -5,34 +5,6 @@
 <mapper namespace="com.t226.dao.room.RoomMapper">
 
 
-
-
-    <select id="getRoomList1" resultType="Room"><!--条件查询房间1-->
-        SELECT room.*,building.name as buildingName,adds.name as addressName from security_room as room inner JOIN
-        security_building as building on building.id=room.buildingId
-        INNER JOIN address as adds on adds.id=building.addressId
-        <trim prefix="where" prefixOverrides="and">
-            <if test="addressId != null and addressId != ''">
-                building.addressId=#{addressId}
-            </if>
-            <if test="userId != null and userId != ''">
-                <if test="userId == 1">
-                    and userId=0
-                </if>
-                <if test="userId == 2">
-                    and userId!=0
-                </if>
-            </if>
-            <if test="buildingId != null and buildingId != ''">
-                and room.buildingId=#{buildingId}
-            </if>
-            <if test="layerId != null and layerId != ''">
-                and room.layerId=#{layerId}
-            </if>
-        </trim>
-    </select>
-
-
     <select id="getRoomList" resultType="Room"><!--条件查询房间-->
 SELECT room.*,building.name as buildingName,adds.name as addressName from security_room as room inner JOIN
 security_building as building on building.id=room.buildingId
@@ -90,15 +62,9 @@ security_building as building on building.id=room.buildingId
     select ad.`name` as addressName,room.id,room.`name`,room.layerId,building.`name` as buildingName,room.price  FROM security_room as room inner join security_building as building
  on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id=#{roomId}
 </select>
-  <!--  购房操作-->
-<insert id="purchaseRoom">
-    INSERT into record(userId,roomId,money,stopTime)VALUE(#{userId},#{roomId},#{money},#{stopTime});
-</insert>
-
-
-  <!--  购买后更新房子主人-->
-    <update id="updateRoomUserId">
-        update security_room set userId=#{userId} where id=#{id}
-    </update>
+    <select id="getHouse" resultType="Room">
+        select ad.`name` as addressName,room.id,room.`name`,room.layerId,building.`name` as buildingName,room.price,d.createTime as createTime,d.stopTime as stopTime  FROM security_room as room inner join record as d on room.id=d.roomId inner join security_building as building
+ on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id in (select roomId from record where userId=#{id});
+    </select>
 </mapper>
 

@@ -30,14 +30,12 @@ public class LoginAction {
 	@Resource
 	private UserService userService;
 
-	private static final String localhost="http://399cbdca.ngrok.io";
-
 	@RequestMapping(value = "/login")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		System.out.println("=======进入login=========>>");
 		String url = "https://open.weixin.qq.com/connect/qrconnect?";
 		url += "appid=wx860bf23c66d93e33";
-		url += "&redirect_uri=" + URLEncoder.encode(localhost+"/SelfHelpSystem/WeCat/callBackLogin", "GBK");
+		url += "&redirect_uri=" + URLEncoder.encode("http://6ded7c32.ngrok.io/SelfHelpSystem/WeCat/callBackLogin", "GBK");
 		url += "&response_type=code&scope=snsapi_login";
 		url += "&state=" + request.getSession().getId() + "#wechat_redirect";
 		System.out.println("url>>>" + url);
@@ -140,7 +138,7 @@ public class LoginAction {
 		System.out.println("=======进入login=========>>");
 		String url = "https://open.weixin.qq.com/connect/qrconnect?";
 		url += "appid=wx860bf23c66d93e33";
-		url += "&redirect_uri=" + URLEncoder.encode(localhost+"/SelfHelpSystem/WeCat/callBackLogin1", "GBK");
+		url += "&redirect_uri=" + URLEncoder.encode("http://6ded7c32.ngrok.io/SelfHelpSystem/WeCat/callBackLogin1", "GBK");
 		url += "&response_type=code&scope=snsapi_login";
 		url += "&state=" + request.getSession().getId() + "#wechat_redirect";
 		System.out.println("url>>>" + url);

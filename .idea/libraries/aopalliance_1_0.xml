@@ -45,6 +45,8 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/standard.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/validation-api-1.0.0.GA.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/wsdl4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/mail.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -73,11 +73,8 @@ public class UserServiceImpl implements UserService {
 	//微信登录或注册
 	@Override
 	public User wxUser(String wxId) {
-		System.out.println("wxId>>"+wxId);
 		if(!StringUtils.isNullOrEmpty(wxId)){
-			System.out.println("11111");
 			User user=userMapper.wxUser(wxId);
-			System.out.println("22222");
 			if(user==null){
 				userMapper.addWxUser(wxId);//注册
 				return userMapper.wxUser(wxId);//注册完后在进行查询

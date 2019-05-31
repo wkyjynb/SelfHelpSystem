@@ -1,8 +1,8 @@
 package com.t226.controller.room;
 
-import com.alibaba.fastjson.JSON;
 import com.mysql.jdbc.StringUtils;
 import com.t226.pojo.Room;
+import com.t226.pojo.User;
 import com.t226.service.address.AddressService;
 import com.t226.service.building.BuildingService;
 import com.t226.service.room.RoomService;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/room")
@@ -61,43 +63,7 @@ public class RoomController {
 
 
 
-    @ResponseBody
-    @RequestMapping(value = "/show.html")
-    public Object show(HttpServletRequest request,@RequestParam(value = "addressId",required = false) String addressId
-            ,@RequestParam(value = "userId",required = false) String userId,@RequestParam(value = "buildingId",required = false) String buildingId
-            ,@RequestParam(value = "layerId",required = false) String layerId){
-        System.out.println("------------------------------------------------");
-        if(!StringUtils.isNullOrEmpty(addressId)){
-            request.setAttribute("buildingList",buildingService.getBuilding(0,Integer.parseInt(addressId)));
-            System.out.println(buildingService.getBuilding(0,Integer.parseInt(addressId)).size());
-        }
-        if(!StringUtils.isNullOrEmpty(addressId)&&!StringUtils.isNullOrEmpty(buildingId)){
-            request.setAttribute("layerList",buildingService.getBuilding(Integer.parseInt(buildingId),Integer.parseInt(addressId)));
-        }
-        request.setAttribute("userId",userId);//当前选中区域id
-        request.setAttribute("addressId",addressId);//当前选中区域id
-        request.setAttribute("buildingId",buildingId);//回显当前选中楼号
-        request.setAttribute("layerId",layerId);//回显当前选中楼层
-        request.setAttribute("addressList",addressService.getAddressList());//区域集合
-        String json= JSON.toJSONString(roomService.getRoomList1(addressId,"0",buildingId,layerId));
-        String json1=JSON.toJSONString(addressService.getAddressList());
-        String json2=JSON.toJSONString(userId);
-        String json3=JSON.toJSONString(addressId);
-        String json4=JSON.toJSONString(buildingId);
-        String json5=JSON.toJSONString(layerId);
-        return json;
-    }
 
-
-
-
-
-
-
-
-
-
-    /*ds*/
 
    /* //购买页面
     @RequestMapping(value = "purchase1")
@@ -114,18 +80,17 @@ public class RoomController {
       request.setAttribute("room",roomService.getRoom(id));
        return "/user/purchase";
     }
-
-
-
-
-
-
-    @ResponseBody
-    @RequestMapping(value = "getAddressList")
-    public Object getAddressList(){
-        System.out.println(addressService.getAddressList());
-        return JSON.toJSONString(addressService.getAddressList());
+    @RequestMapping(value = "/myHouse.html")
+    public String myHouse(HttpServletRequest request, HttpSession session){
+        System.out.println("进入----------------------------------");
+        List<Room> houseList=roomService.getHouse(((User)request.getSession().getAttribute(Constants.USER_SESSION)).getId());
+        System.out.println(houseList.get(0).getStopTime());
+        request.setAttribute("houseList",houseList);
+        return "/user/MyHouse";
     }
+
+
+
 
 
 

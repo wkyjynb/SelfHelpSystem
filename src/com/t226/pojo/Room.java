@@ -1,5 +1,9 @@
 package com.t226.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class Room {
     private int id;
     private String name;
@@ -11,6 +15,25 @@ public class Room {
     private double price;
     private int userId;
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(Date stopTime) {
+        this.stopTime = stopTime;
+    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date stopTime;
     public String getAddressId() {
         return addressId;
     }

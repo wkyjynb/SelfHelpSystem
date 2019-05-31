@@ -11,14 +11,5 @@ public interface RoomService {
     //条件查询数量
     int getRoomCount(String addressId,String userId,String buildingId,String layerId);
     Room getRoom(int roomId);//根据房间id查询
-
-    //查询房间1
-    List<Room> getRoomList1(String addressId,String userId,String buildingId,String layerId);
-
-    //购房操作
-    int purchaseRoom(String stopTime,double money,int roomId,int userId);
-
-
-    //购买后更新房子主人
-    int updateRoomUserId(@Param("userId") int userId,@Param("id") int id);
+    List<Room> getHouse(int id);//查询用户的房子
 }

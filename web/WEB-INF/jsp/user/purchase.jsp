@@ -14,12 +14,11 @@
       <br/>
       当前账户余额:${userSession.money}
       <br/>
-      <form method="post" action="${pageContext.request.contextPath}/user/purchaseRoom" id="form1s">
+      <form method="post" action="${pageContext.request.contextPath }" id="form1s">
         请输入月数<input type="text" id="numbers">${room.price}/每月<br/>
         <input type="button" value="购买" id="buts">
         <input type="hidden" value="" id="stopTime" name="stopTime">
         <input type="hidden" value="" id="money" name="money">
-        <input type="hidden" value="${room.id}" name="roomId">
       </form>
       <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery-1.8.3.js"></script>
   <script type="text/javascript">
@@ -29,14 +28,9 @@
       }else {
         var now = new Date();
         newDate = DateAdd("m ",Number($("#numbers").val()),now);
-        var oDate = new Date(newDate);//转回时间类型
-        $("#stopTime").val(oDate.getFullYear()+"-"+(oDate.getMonth()+1)+"-"+oDate.getDate());//时间
-         $("#money").val(Number(${room.price})*Number($("#numbers").val()));//金钱
-
-      var fin=  confirm("是否进行支付,租期"+oDate.getFullYear()+"-"+(oDate.getMonth()+1)+"-"+oDate.getDate()+"截止,共计"+(Number(${room.price})*Number($("#numbers").val()))+"元");
-      if(fin==true){
+        $("#stopTime").val(newDate);
+        $("#money").val(Number("${room.price}")*Number($("#numbers").val()));
         $("#form1s").submit();
-      }
       }
     })
 

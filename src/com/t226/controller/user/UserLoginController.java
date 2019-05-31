@@ -1,12 +1,5 @@
 package com.t226.controller.user;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.mysql.jdbc.StringUtils;
 import com.t226.dao.user.UserMapper;
@@ -23,7 +16,6 @@ import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import org.apache.http.HttpResponse;
@@ -217,38 +209,4 @@ public class UserLoginController {
 			System.out.println("错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
 		}
 	}
-
-	//微信小程序登录
-	@ResponseBody
-	@RequestMapping(value = "/wxUser",method = RequestMethod.GET)
-	public Object wxUser(@RequestParam(value = "name",required = false) String name){
-		System.out.println("开通了-------------------->"+name);
-		return JSON.toJSONString(userService.wxUser(name));
-	}
-
-	//人工智能
-	@ResponseBody
-	@RequestMapping(value = "/AI",method = RequestMethod.GET)
-	public String getAI(@RequestParam(value = "text") String text) throws IOException{
-		String APIKEY = "d25e5c6fddbb44978594af9f38776cd6";
-		String question = text;// 这是上传给云机器人的问题
-		String INFO = URLEncoder.encode(question, "utf-8");
-		String getURL = "http://www.tuling123.com/openapi/api?key=" + APIKEY+ "&info=" + INFO;
-		URL getUrl = new URL(getURL);
-		HttpURLConnection connection = (HttpURLConnection) getUrl.openConnection();
-		connection.connect();
-		// 取得输入流，并使用Reader读取
-		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-		StringBuffer sb = new StringBuffer();
-		String line = "";
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-		reader.close();
-		// 断开连接
-		connection.disconnect();
-		return sb.toString();
-	}
-
-
 }

@@ -187,15 +187,7 @@
 										<td>${room.price}</td>
 									<%--	<td></td>
 										<td></td>--%>
-										<td>
-
-										<c:if test="${room.userId eq 0}">
-											<a href="${path}/room/purchase/${room.id}">购买</a>
-										</c:if>
-											<c:if test="${room.userId != 0}">
-												<a style="color: red">已售出</a>
-											</c:if>
-										</td>
+										<td><a href="${path}/room/purchase/${room.id}">购买</a></td>
 										
 										
 							<%--	<td>		<div class="btn-group">

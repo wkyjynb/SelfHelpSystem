@@ -62,6 +62,9 @@ security_building as building on building.id=room.buildingId
     select ad.`name` as addressName,room.id,room.`name`,room.layerId,building.`name` as buildingName,room.price  FROM security_room as room inner join security_building as building
  on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id=#{roomId}
 </select>
-
+    <select id="getHouse" resultType="Room">
+        select ad.`name` as addressName,room.id,room.`name`,room.layerId,building.`name` as buildingName,room.price,d.createTime as createTime,d.stopTime as stopTime  FROM security_room as room inner join record as d on room.id=d.roomId inner join security_building as building
+ on room.buildingId=building.id left JOIN address as ad on building.addressId=ad.id where room.id in (select roomId from record where userId=#{id});
+    </select>
 </mapper>
 

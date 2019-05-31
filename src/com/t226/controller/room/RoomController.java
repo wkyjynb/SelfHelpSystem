@@ -2,19 +2,19 @@ package com.t226.controller.room;
 
 import com.mysql.jdbc.StringUtils;
 import com.t226.pojo.Room;
+import com.t226.pojo.User;
 import com.t226.service.address.AddressService;
 import com.t226.service.building.BuildingService;
 import com.t226.service.room.RoomService;
 import com.t226.tools.Constants;
 import com.t226.tools.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/room")
@@ -79,6 +79,14 @@ public class RoomController {
     public String purchase2(@PathVariable int id,HttpServletRequest request){
       request.setAttribute("room",roomService.getRoom(id));
        return "/user/purchase";
+    }
+    @RequestMapping(value = "/myHouse.html")
+    public String myHouse(HttpServletRequest request, HttpSession session){
+        System.out.println("进入----------------------------------");
+        List<Room> houseList=roomService.getHouse(((User)request.getSession().getAttribute(Constants.USER_SESSION)).getId());
+        System.out.println(houseList.get(0).getStopTime());
+        request.setAttribute("houseList",houseList);
+        return "/user/MyHouse";
     }
 
 

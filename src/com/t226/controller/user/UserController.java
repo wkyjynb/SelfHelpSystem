@@ -264,11 +264,5 @@ public class UserController {
         }
         return 0;
     }
-    @RequestMapping(value = "/myhouse.html")
-    public String myHouse(){
-        System.out.println("进入----------------------------------");
-
-        return "/user/MyHouse";
-    }
 
 }

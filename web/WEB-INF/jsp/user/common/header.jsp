@@ -73,7 +73,7 @@
 									<ul class="nav child_menu">
 										<li><a href="${pageContext.request.contextPath }/user/showUserInfo.html">个人信息</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath }/user/myhouse.html?id=${devUserSession}">我的房子</a>
+										<li><a href="${pageContext.request.contextPath }/room/myHouse.html">我的房子</a>
 										</li>
 									</ul></li>
 								<li><a><i class="fa fa-edit"></i> 全部房子<span

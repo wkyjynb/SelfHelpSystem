@@ -28,4 +28,9 @@ public class RoomServiceImpl implements RoomService{
     public Room getRoom(int roomId) {
         return roomMapper.getRoom(roomId);
     }
+
+    @Override
+    public List<Room> getHouse(int id) {
+        return roomMapper.getHouse(id);
+    }
 }

@@ -1,5 +1,8 @@
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@include file="common/header.jsp"%>
 <div class="clearfix"></div>
 <div class="row">
@@ -67,18 +70,13 @@
                                                     <td>${room.buildingName}</td>
                                                     <td>${room.layerId}层</td>
                                                     <td>${room.name}</td>
-                                                    <td><c:if test="${room.userId==0}">
-                                                        未出售
-                                                    </c:if>
-                                                        <c:if test="${room.userId!=0}">
-                                                            已出售
-                                                        </c:if>
-                                                    </td>
                                                     <td>${room.price}</td>
-                                                        <%--	<td></td>
-                                                            <td></td>--%>
-                                                    <td><a href="${path}/room/purchase/${room.id}">购买</a></td>
-                                                </tr>
+                                                    <fmt:formatDate value="${room.stopTime}" var="stopTime" pattern="yyyy-MM-dd" ></fmt:formatDate>
+                                                    <td><fmt:formatDate value="${room.createTime}" pattern="yyyy-MM-dd HH:mm:ss" ></fmt:formatDate></td>
+                                                    <td>${stopTime}</td>
+                                                    <fmt:formatDate value="<%=new Date() %>" var="date" pattern="yyyy-MM-dd" />
+                                                    <td><c:if test="${date>stopTime}">已过期</c:if><c:if test="${date<stopTime}">未到期</c:if></td>
+>                                                </tr>
                                             </c:forEach>
                                             </tbody>
                                         </table>

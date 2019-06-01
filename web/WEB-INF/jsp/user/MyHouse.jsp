@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/jquery-1.8.3.js"></script>
 <%@include file="common/header.jsp"%>
 <div class="clearfix"></div>
 <div class="row">
@@ -75,11 +75,31 @@
                                                     <td><fmt:formatDate value="${room.createTime}" pattern="yyyy-MM-dd HH:mm:ss" ></fmt:formatDate></td>
                                                     <td>${stopTime}</td>
                                                     <fmt:formatDate value="<%=new Date() %>" var="date" pattern="yyyy-MM-dd" />
-                                                    <td><c:if test="${date>stopTime}">已过期</c:if><c:if test="${date<stopTime}">未到期</c:if></td>
+                                                    <td><c:if test="${date>stopTime}">已过期</c:if>
+
+                                                        <c:if test="${date<stopTime}">
+                                                            <a href="#" id="kks${room.id}">未到期</a>
+                                                            <script type="text/javascript">
+
+                                                                $("#kks${room.id}").click(function () {
+
+                                                                    $('#viewDiv').load('${pageContext.request.contextPath}/user/Face/${room.id}');
+                                                                })
+                                                            </script>
+                                                        </c:if></td>
 >                                                </tr>
                                             </c:forEach>
+
+
                                             </tbody>
                                         </table>
+
+
+                                        <div id="viewDiv" style="height: 500px;width: 400px"></div>
+
+
+
+
                                     </div>
                                 </div>
                             </div>

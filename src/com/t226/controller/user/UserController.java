@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bdqn.t226.lxw.util.FaceRecognitionOperation;
 import com.sun.mail.util.MailSSLSocketFactory;
 import com.t226.service.building.BuildingService;
 import com.t226.service.room.RoomService;
@@ -28,13 +29,10 @@ import com.t226.tools.Util;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.t226.pojo.User;
 import com.t226.service.user.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 import sun.misc.BASE64Encoder;
@@ -49,6 +47,24 @@ public class UserController {
     private BuildingService buildingService;
     @Resource
     private RoomService roomService;
+
+
+    //进入人脸管理页面
+    @RequestMapping(value = "Face/{id}")
+    public String Face(@PathVariable int id,HttpServletRequest request){
+        request.setAttribute("room",roomService.getRoom(id));
+        return "/user/Face";
+    }
+
+    //添加人脸
+    @RequestMapping(value = "addFace",method = RequestMethod.POST)
+    @ResponseBody
+    public Object addFace(@RequestParam(value ="roomId") int roomId,@RequestParam(value = "img") String img,HttpServletRequest request){
+        FaceRecognitionOperation faceRecognitionOperation=new FaceRecognitionOperation("8q60zHbc6rDHhgIwqfuWNS0O", "aZKEp1yQxGC9wHyjCBiUHcU0xNWHSgMm");
+        return faceRecognitionOperation.add(img,((User)request.getSession().getAttribute(Constants.USER_SESSION)).getId()+"",roomId+"");
+    }
+
+
 
 
     //进入购房首页

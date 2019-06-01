@@ -14,10 +14,10 @@
                 <div class="clearfix"></div>
             </div>
 
-            <form id="form1" action="${pageContext.request.contextPath}/user/addIdentityId" method="post" enctype="multipart/form-data">
+            <form id="form1" action="${pageContext.request.contextPath}/user/addEmail.html" method="post" enctype="multipart/form-data">
                 <ul>
                     <li>  Email : <input type="email" id="front" name="email"></li><br/>
-                    <li> 验证码 : <input type="text" onblur="back()" name="yanzhengma"> <input type="button" id="butt" value="获取验证码" onclick="but()"></li><br/>
+                    <li> 验证码 ：<input type="text" onblur="back()" name="yanzhengma" id="text"> <input type="button" id="butt" value="获取验证码" onclick="but()"></li><br/>
                     <input type="submit" value="提交">
                 </ul>
             </form>
@@ -25,7 +25,6 @@
             <script type="text/javascript">
                 function but() {
                     var qq=$("#front").val();
-                    alert(qq);
                     $.ajax({
                         "url" : "${pageContext.request.contextPath }/user/yan.html",
                         "type" : "POST",
@@ -37,6 +36,7 @@
                         if(data.yan==1){
                             alert("发送成功，注意查看信息");
                             i=60;
+                            $("#butt").attr({disabled: true});
                             setInterval("time()",1000);
                         }
                         if(data.yan==0){
@@ -45,7 +45,22 @@
                     }
                 }
                 function back() {
-
+                    var qq=$("#front").val();
+                    var text=$("#text").val();
+                    $.ajax({
+                        "url" : "${pageContext.request.contextPath }/user/zheng.html",
+                        "type" : "POST",
+                        "data" : "qq="+qq,
+                        "dataType" : "JSON",
+                        "success" : make
+                    })
+                    function  make(data) {
+                        if(text!=null||text!=""){
+                            if(data.zhen!=text||data.zhen==""){
+                                alert("验证码输入错误");
+                            }
+                        }
+                    }
                 }
                 var i=60;
                 function  time() {
@@ -54,6 +69,7 @@
                        $("#butt").val("重新发送("+i+")");
                     }
                     if(i==0){
+                        $("#butt").removeAttr('disabled');
                         $("#butt").val("获取验证码");
                     }
                 }

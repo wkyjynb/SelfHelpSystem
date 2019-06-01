@@ -7,6 +7,7 @@ import com.t226.pojo.Detection;
 import com.t226.pojo.User;
 import com.t226.service.user.UserService;
 import com.t226.tools.Constants;
+import com.t226.tools.Mail;
 import com.t226.tools.Sms;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
@@ -22,6 +23,7 @@ import org.apache.http.HttpResponse;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -208,5 +210,49 @@ public class UserLoginController {
 		}else{
 			System.out.println("错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
 		}
+	}
+	//进入修改密码界面
+	@RequestMapping(value = "modify.html",method = RequestMethod.GET)
+	public String modify(){
+		return "/user/ModifyPwd";
+	}
+	@RequestMapping(value = "modifyPhone.html",method = RequestMethod.POST)
+	@ResponseBody
+	public Object modifyPhone(String phone){
+		User user=(User)userService.modifyPhone(phone);
+		int mail = 0;
+		if(user!=null) {
+			try {
+				mail = Mail.mail(user.getEmail());
+			} catch (GeneralSecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("yan",mail);
+		return JSONArray.toJSONString(map);
+	}
+	@RequestMapping(value="/extits.html",method = RequestMethod.POST)
+	@ResponseBody
+	public Object extits(String phone){
+		Map<String,Object> map=new HashMap<String,Object>();
+		User user=(User)userService.modifyPhone(phone);
+		if(user!=null) {
+			Jedis jedis = new Jedis("106.12.129.166", 6379);
+			jedis.auth("1234");
+			map.put("zhen", jedis.smembers(user.getEmail()));
+		}
+		else {
+			map.put("zhen", "0");
+		}
+		return JSONArray.toJSONString(map);
+	}
+	@RequestMapping(value = "modifyPwd.html",method = RequestMethod.POST)
+	public String modifyPwd(String phone,String pwd){
+		int result=userService.modifyPwd(pwd,phone);
+		if(result>0){
+			return "redirect:/";
+		}
+		return "redirect:/modify.html";
 	}
 }

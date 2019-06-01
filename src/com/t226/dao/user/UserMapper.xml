@@ -45,4 +45,13 @@ INSERT security_user (password,phone)VALUE
     <update id="updateMoney">/*充值*/
 update security_user set money=money+#{money} where id=#{id}
     </update>
+    <update id="addEmail">
+        update security_user set email=#{email} where id=#{id}
+    </update>
+    <select id="modifyPhone" resultType="User">
+        select email from security_user where phone=#{phone}
+    </select>
+    <update id="modifyPwd">
+        update  security_user set password=#{pwd} where phone=#{phone}
+    </update>
 </mapper>

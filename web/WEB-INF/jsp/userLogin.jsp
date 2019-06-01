@@ -39,7 +39,7 @@
               </div>
               <div>
                 <input type="password" class="form-control" name="password" placeholder="请输入密码" required="" />
-                <a style="color: red;text-decoration: none" href="">忘记密码</a>
+                <a style="color: red;text-decoration: none" href="${pageContext.request.contextPath }/modify.html">忘记密码</a>
               </div>
               <span>${error}</span>
               <div>
@@ -53,7 +53,7 @@
 
               <div class="separator">
                 <div>
-                  <p>©2016 All Rights Reserved. </p>
+                  <p>©2019 All Rights Reserved. </p>
                 </div>
               </div>
             </form>

@@ -59,7 +59,7 @@ public class UserLoginController {
 	@RequestMapping("/registerSave")
 	public String registerSave(User user, HttpSession session){
 		userService.affairAddUser(user);
-		session.setAttribute(Constants.USER_SESSION,user);
+		session.setAttribute(Constants.USER_SESSION,userService.phoneLogin(user.getPhone()));
 		return "redirect:/user/userMain.html";
 	}
 

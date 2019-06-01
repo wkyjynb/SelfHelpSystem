@@ -111,4 +111,11 @@ public class UserServiceImpl implements UserService {
 	public int modifyPwd(String pwd,String phone){
 		return userMapper.modifyPwd(pwd,phone);
 	}
+
+
+	//手机号登录
+	@Override
+	public User phoneLogin(String phone) {
+		return userMapper.userLogin(phone);
+	}
 }

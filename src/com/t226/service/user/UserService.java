@@ -20,4 +20,5 @@ public interface UserService {
 	int addEmail(String email,int id);//绑定邮箱
 	User modifyPhone(String phone);//根据手机号码获取邮箱
 	int modifyPwd(String pwd,String phone);//修改密码
+	User phoneLogin(String phone);//手机号登录
 }

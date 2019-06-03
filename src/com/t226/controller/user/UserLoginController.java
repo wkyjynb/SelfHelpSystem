@@ -229,7 +229,7 @@ public class UserLoginController {
 	//人工智能
 	@ResponseBody
 	@RequestMapping(value = "/AI",method = RequestMethod.GET)
-	public String getAI(@RequestParam(value = "text") String text) throws IOException{
+	public Object getAI(@RequestParam(value = "text") String text) throws IOException{
 		String APIKEY = "d25e5c6fddbb44978594af9f38776cd6";
 		String question = text;// 这是上传给云机器人的问题
 		String INFO = URLEncoder.encode(question, "utf-8");

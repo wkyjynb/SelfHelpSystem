@@ -84,7 +84,6 @@ public class RoomController {
     public String myHouse(HttpServletRequest request, HttpSession session){
         System.out.println("进入----------------------------------");
         List<Room> houseList=roomService.getHouse(((User)request.getSession().getAttribute(Constants.USER_SESSION)).getId());
-        System.out.println(houseList.get(0).getStopTime());
         request.setAttribute("houseList",houseList);
         return "/user/MyHouse";
     }

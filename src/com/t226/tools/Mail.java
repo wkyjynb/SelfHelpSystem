@@ -18,14 +18,14 @@ public class Mail {
         // 发件人电子邮箱
         String from = "2735633182@qq.com";
 
-        // 设置邮件服务器
-        properties.setProperty("mail.smtp.
         // 指定发送邮件的主机为 smtp.qq.com
         String host = "smtp.qq.com";  //QQ 邮件服务器smtp.qq.com
 
         // 获取系统属性
         Properties properties = System.getProperties();
-host", host);
+
+        // 设置邮件服务器
+        properties.setProperty("mail.smtp.host", host);
 
         properties.put("mail.smtp.auth", "true");
         MailSSLSocketFactory sf = new MailSSLSocketFactory();
